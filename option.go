@@ -17,6 +17,7 @@ type Config struct {
 	Computed   *js.Object `js:"computed"`
 	Components *js.Object `js:"components"`
 	Filters    *js.Object `js:"filters"`
+	Store      *js.Object `js:"store"`
 
 	dataValue reflect.Value
 

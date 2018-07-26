@@ -24,6 +24,8 @@ type VM struct {
 	ScopedSlots *js.Object   `js:"$scopedSlots"`
 	IsServer    bool         `js:"$isServer"`
 
+	Store       *js.Object   `js:"$store"` //Vuex store, in case option is enabled, see https://vuex.vuejs.org/guide/state.html
+
 	// Note existence of fields with setter methods, which won't show up in
 	// $data.
 	Setters *js.Object `js:"hvue_setters"`
@@ -61,6 +63,15 @@ func NewVM(opts ...ComponentOption) *VM {
 func El(selector string) ComponentOption {
 	return func(c *Config) {
 		c.El = selector
+	}
+}
+
+// Store enables the Vuex store option, as described here: https://vuex.vuejs.org/guide/state.html
+func Store() ComponentOption {
+	return func(c *Config) {
+		// Note: The Vuex store has to be already exposed to js.Global "store" with this name, the original
+		// implementation doesn't allow to provide another name
+		c.Store = js.Global.Get("store")
 	}
 }
 
