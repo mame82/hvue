@@ -28,6 +28,12 @@ func Set(o, key, value interface{}) interface{} {
 	return value
 }
 
+// Delete is a wrapper for js{Vue.delete}
+func Delete(o, key interface{}) {
+	js.Global.Get("Vue").Call("delete", o, key)
+	return
+}
+
 // NewT is an attempt at making GopherJS struct initialization easier and more
 // Go-like.  The intent is that instead of saying
 //
